@@ -1,5 +1,5 @@
 {
-  "name": "turbo-test",
+  "name": "vibestack-root",
   "private": true,
   "scripts": {
     "build": "turbo run build",
