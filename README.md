@@ -1,10 +1,16 @@
+# WIP
+
+> This project is still under development.
+> This README represents the idea of the project.
+> Feel free to give me feedback or contribute to the project.
+
 # Vibestack
 
-Easily add instructions, cheat sheets and rules for your favorite tools tailored for your framework to use with your agentic IDE.
+Easily add instructions, cheat sheets and rules for your favorite tools tailored for your framework to use with your agentic IDE. (DX inspired by [shadcn/ui](https://github.com/shadcn-ui/ui))
 
 ## Usage
 
-- Initialize your project configuration
+- Initialize your project configuration. The CLI should automatically detect the framework you're using.
 
 ```bash
 npx vibestack init
