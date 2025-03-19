@@ -4,7 +4,7 @@
 > This README represents the idea of the project.
 > Feel free to give me feedback or contribute to the project.
 
-# Vibestack
+# VibeStack
 
 Easily add instructions, cheat sheets and rules for your favorite tools tailored for your framework to use with your agentic IDE. (DX inspired by [shadcn/ui](https://github.com/shadcn-ui/ui))
 
