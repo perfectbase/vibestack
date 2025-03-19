@@ -9,7 +9,7 @@ program
   .description(
     "Easily add instructions, cheat sheets and rules for your favorite tools tailored for your framework."
   )
-  .version("0.0.5");
+  .version("0.0.7");
 
 // Register commands
 initCommand(program);
