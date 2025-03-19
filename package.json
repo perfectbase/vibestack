@@ -9,8 +9,7 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
-    "pub:release": "changeset version && bun -F vibestack pub:prep && git add . && git commit -m 'chore: update version' && changeset publish",
-    "prepublishOnly": "turbo run build --filter=vibestack"
+    "pub:release": "changeset version && bun -F vibestack pub:prep && git add . && git commit -m 'chore: update version' && changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "^2.28.1",
