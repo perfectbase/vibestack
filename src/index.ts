@@ -1,4 +1,6 @@
 import { Command } from "commander";
+import { initCommand } from "./commands/init.js";
+import { addCommand } from "./commands/add.js";
 
 const program = new Command();
 
@@ -9,11 +11,8 @@ program
   )
   .version("0.0.4");
 
-program
-  .command("init")
-  .description("Initialize a new vibestack project")
-  .action(() => {
-    console.log("Hello World! Vibestack initialized successfully.1");
-  });
+// Register commands
+initCommand(program);
+addCommand(program);
 
 program.parse();
