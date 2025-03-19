@@ -1,6 +1,9 @@
 {
   "name": "vibestack-root",
   "private": true,
+  "description": "Easily add instructions, cheat sheets and rules for your favorite tools tailored for your framework.",
+  "author": "Ravi",
+  "license": "MIT",
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
