@@ -1,35 +1,29 @@
 {
-  "name": "vibestack",
-  "version": "0.0.10",
-  "description": "Easily add instructions, cheat sheets and rules for your favorite tools tailored for your framework.",
-  "main": "dist/index.js",
-  "type": "module",
-  "bin": {
-    "vibestack": "dist/index.js"
-  },
+  "name": "turbo-test",
+  "private": true,
   "scripts": {
-    "build": "tsup",
-    "start": "node dist/index.js",
-    "dev": "tsup --watch",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "version": "tsx scripts/version.ts && git add src/index.ts",
-    "prepublishOnly": "bun run build",
-    "publish:patch": "npm version patch && npm publish",
-    "publish:minor": "npm version minor && npm publish",
-    "publish:major": "npm version major && npm publish"
-  },
-  "files": [
-    "dist"
-  ],
-  "author": "Ravi",
-  "license": "MIT",
-  "dependencies": {
-    "commander": "^13.1.0"
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "dev:docs": "turbo run dev --filter=docs",
+    "dev:cli": "turbo run dev --filter=vibestack",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "check-types": "turbo run check-types",
+    "publish:patch": "bun -F vibestack publish:patch",
+    "publish:minor": "bun -F vibestack publish:minor",
+    "publish:major": "bun -F vibestack publish:major"
   },
   "devDependencies": {
-    "@types/node": "^22.13.10",
-    "tsup": "^8.0.2",
-    "tsx": "^4.19.3",
-    "typescript": "^5.8.2"
-  }
+    "prettier": "^3.5.3",
+    "turbo": "^2.4.4",
+    "typescript": "5.8.2"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "bun@1.2.4",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
 }

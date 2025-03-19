@@ -1,4 +1,22 @@
-node_modules/
-dist/
+# Dependencies
+node_modules
+
+# Local env files
+.env*
+!.env.example
+
+# Testing
+coverage
+
+# Turbo
+.turbo
+
+# Vercel
+.vercel
+
+# Build Outputs
+dist
+
+# Misc
 .DS_Store
-*.log 
+*.pem
