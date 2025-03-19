@@ -12,7 +12,7 @@
     "start": "node dist/index.js",
     "dev": "tsup --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "version": "tsx scripts/version.ts && git add src/index.ts",
+    "version": "tsx scripts/version.ts && git add .",
     "prepublishOnly": "bun run build",
     "publish:patch": "npm version patch && npm publish",
     "publish:minor": "npm version minor && npm publish",

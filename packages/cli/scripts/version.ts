@@ -20,3 +20,22 @@ const updatedContent = indexTsContent.replace(
 fs.writeFileSync(indexTsPath, updatedContent);
 
 console.log(`Updated version in src/index.ts to ${currentVersion}`);
+
+// Copy README and LICENSE from the root of the monorepo
+const monorepoRoot = path.resolve("../..");
+const readmePath = path.join(monorepoRoot, "README.md");
+const licensePath = path.join(monorepoRoot, "LICENSE.md");
+
+if (fs.existsSync(readmePath)) {
+  fs.copyFileSync(readmePath, path.resolve("./README.md"));
+  console.log("Copied README.md from monorepo root");
+} else {
+  console.warn("README.md not found in monorepo root");
+}
+
+if (fs.existsSync(licensePath)) {
+  fs.copyFileSync(licensePath, path.resolve("./LICENSE.md"));
+  console.log("Copied LICENSE.md from monorepo root");
+} else {
+  console.warn("LICENSE.md not found in monorepo root");
+}
