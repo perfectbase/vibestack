@@ -1,6 +1,6 @@
 {
   "name": "vibestack",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "description": "Easily add instructions, cheat sheets and rules for your favorite tools tailored for your framework.",
   "main": "dist/index.js",
   "type": "module",
@@ -12,11 +12,9 @@
     "start": "node dist/index.js",
     "dev": "tsup --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "version": "tsx scripts/version.ts && git add .",
-    "prepublishOnly": "bun run build",
-    "publish:patch": "npm version patch && npm publish",
-    "publish:minor": "npm version minor && npm publish",
-    "publish:major": "npm version major && npm publish"
+    "release": "changeset version",
+    "pub:release": "npm publish",
+    "prepublishOnly": "bun run build"
   },
   "files": [
     "dist"

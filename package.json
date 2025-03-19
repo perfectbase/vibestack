@@ -9,11 +9,16 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
+    "changeset": "changeset",
+    "release": "changeset version",
+    "version": "changeset version",
+    "publish": "turbo run build && changeset publish",
     "publish:patch": "bun -F vibestack publish:patch",
     "publish:minor": "bun -F vibestack publish:minor",
     "publish:major": "bun -F vibestack publish:major"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.28.1",
     "prettier": "^3.5.3",
     "turbo": "^2.4.4",
     "typescript": "5.8.2"
