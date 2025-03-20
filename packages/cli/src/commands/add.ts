@@ -2,11 +2,28 @@ import { Command } from "commander";
 import prompts from "prompts";
 import kleur from "kleur";
 import ora from "ora";
-import { Category, Framework, VibeFile } from "../types.js";
+import { Category, Framework, VibeDef, VibeFile } from "../types.js";
 import { registry } from "../registry/index.js";
 import fs from "fs/promises";
 import path from "path";
 import fetch from "node-fetch";
+import { z } from "zod";
+
+// URL validation schema
+const urlSchema = z.string().url();
+
+// Schema for validating VibeDef from URL
+const vibeFileSchema = z.object({
+  frameworks: z.union([z.string(), z.array(z.string()), z.literal("_all")]),
+  name: z.string(),
+  url: z.string().url(),
+});
+
+const vibeDefSchema = z.object({
+  category: z.string(),
+  name: z.string(),
+  files: z.array(vibeFileSchema),
+});
 
 // Helper functions for user prompts
 async function selectFromOptions<T>(
@@ -71,15 +88,23 @@ async function selectTool(category: Category) {
 }
 
 // Select a file based on framework and available options
-async function selectFile(tool: any): Promise<VibeFile | null> {
+async function selectFile(tool: any): Promise<VibeFile[] | null> {
   if (tool.files.length === 1) {
-    return tool.files[0];
+    return [tool.files[0]];
   }
 
-  // Check if there are multiple frameworks for this tool
-  const frameworks = [
-    ...new Set(tool.files.map((file: VibeFile) => file.framework)),
-  ];
+  // Extract all unique frameworks from the files
+  const allFrameworks = new Set<Framework>();
+
+  tool.files.forEach((file: VibeFile) => {
+    if (Array.isArray(file.frameworks)) {
+      file.frameworks.forEach((framework) => allFrameworks.add(framework));
+    } else if (file.frameworks !== "_all") {
+      allFrameworks.add(file.frameworks as Framework);
+    }
+  });
+
+  const frameworks = [...allFrameworks];
 
   // If multiple frameworks are available, prompt for selection
   if (frameworks.length > 1) {
@@ -101,50 +126,18 @@ async function selectFile(tool: any): Promise<VibeFile | null> {
     console.log(kleur.green(`Selected framework: ${selectedFramework}`));
 
     // Filter files by framework
-    const frameworkFiles = tool.files.filter(
-      (file: VibeFile) => file.framework === selectedFramework
-    );
+    const frameworkFiles = tool.files.filter((file: VibeFile) => {
+      if (file.frameworks === "_all") return true;
+      if (Array.isArray(file.frameworks))
+        return file.frameworks.includes(selectedFramework);
+      return file.frameworks === selectedFramework;
+    });
 
-    // If multiple files for the same framework, prompt user to select one
-    if (frameworkFiles.length > 1) {
-      const fileChoices = frameworkFiles.map((file: VibeFile) => ({
-        title: file.name,
-        value: file,
-      }));
-
-      const selectedFile = await selectFromOptions<VibeFile>(
-        "Choose a file",
-        fileChoices
-      );
-
-      if (!selectedFile) {
-        console.log(kleur.yellow("No file selected. Exiting..."));
-        return null;
-      }
-
-      return selectedFile;
-    }
-
-    return frameworkFiles[0];
+    return frameworkFiles.length > 0 ? frameworkFiles : null;
   }
 
-  // If all files are for the same framework but there are multiple
-  const fileChoices = tool.files.map((file: VibeFile) => ({
-    title: file.name,
-    value: file,
-  }));
-
-  const selectedFile = await selectFromOptions<VibeFile>(
-    "Choose a file",
-    fileChoices
-  );
-
-  if (!selectedFile) {
-    console.log(kleur.yellow("No file selected. Exiting..."));
-    return null;
-  }
-
-  return selectedFile;
+  // If all files are for the same framework, return all files
+  return tool.files;
 }
 
 // Download a file from a URL and save it to the target path
@@ -155,7 +148,6 @@ async function downloadAndSaveFile(
   const spinner = ora(`Downloading ${file.name}...`).start();
 
   try {
-    console.log(file.url);
     const response = await fetch(file.url);
 
     if (!response.ok) {
@@ -175,11 +167,151 @@ async function downloadAndSaveFile(
   }
 }
 
+// Fetch VibeDef from URL
+async function fetchVibeDefFromUrl(url: string): Promise<VibeDef | null> {
+  const spinner = ora(`Fetching configuration from ${url}...`).start();
+
+  try {
+    // Validate URL
+    urlSchema.parse(url);
+
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      spinner.fail(`Failed to fetch configuration: ${response.statusText}`);
+      return null;
+    }
+
+    const data = await response.json();
+
+    // Validate the data against our schema
+    const validatedData = vibeDefSchema.parse(data);
+    spinner.succeed(`Configuration fetched successfully`);
+
+    return validatedData;
+  } catch (error: any) {
+    if (error.name === "ZodError") {
+      spinner.fail(`Invalid configuration format: ${error.message}`);
+    } else {
+      spinner.fail(`Failed to fetch configuration: ${error.message}`);
+    }
+    return null;
+  }
+}
+
+// Process VibeDef to download files
+async function processVibeDef(vibeDef: VibeDef): Promise<void> {
+  console.log(
+    kleur.green(`Processing ${vibeDef.name} in category ${vibeDef.category}`)
+  );
+
+  // If there's only one file, no need to select
+  if (vibeDef.files.length === 1) {
+    const selectedFiles = [vibeDef.files[0]];
+    console.log(kleur.green(`Selected file: ${selectedFiles[0].name}`));
+
+    // Create target directory
+    const targetDir = path.join(
+      process.cwd(),
+      "vibes",
+      vibeDef.category,
+      vibeDef.name
+    );
+    await fs.mkdir(targetDir, { recursive: true });
+
+    // Download and save the file
+    await downloadAndSaveFile(selectedFiles[0], targetDir);
+    return;
+  }
+
+  // Extract all unique frameworks from the files
+  const allFrameworks = new Set<Framework>();
+  vibeDef.files.forEach((file: VibeFile) => {
+    if (Array.isArray(file.frameworks)) {
+      file.frameworks.forEach((framework) => allFrameworks.add(framework));
+    } else if (file.frameworks !== "_all") {
+      allFrameworks.add(file.frameworks as Framework);
+    }
+  });
+
+  const frameworks = [...allFrameworks];
+
+  // If multiple frameworks are available, prompt for selection
+  let selectedFiles: VibeFile[] = [];
+  if (frameworks.length > 1) {
+    const frameworkChoices = frameworks.map((framework) => ({
+      title: framework as string,
+      value: framework as Framework,
+    }));
+
+    const selectedFramework = await selectFromOptions<Framework>(
+      "Choose a framework",
+      frameworkChoices
+    );
+
+    if (!selectedFramework) {
+      console.log(kleur.yellow("No framework selected. Exiting..."));
+      return;
+    }
+
+    console.log(kleur.green(`Selected framework: ${selectedFramework}`));
+
+    // Filter files by framework
+    selectedFiles = vibeDef.files.filter((file: VibeFile) => {
+      if (file.frameworks === "_all") return true;
+      if (Array.isArray(file.frameworks))
+        return file.frameworks.includes(selectedFramework);
+      return file.frameworks === selectedFramework;
+    });
+  } else {
+    // If only one framework exists, use all files
+    selectedFiles = vibeDef.files;
+  }
+
+  if (selectedFiles.length === 0) {
+    console.log(
+      kleur.yellow("No files found for the selected framework. Exiting...")
+    );
+    return;
+  }
+
+  console.log(
+    kleur.green(
+      `Selected ${selectedFiles.length} file(s): ${selectedFiles.map((file) => file.name).join(", ")}`
+    )
+  );
+
+  // Create target directory
+  const targetDir = path.join(
+    process.cwd(),
+    "vibes",
+    vibeDef.category,
+    vibeDef.name
+  );
+  await fs.mkdir(targetDir, { recursive: true });
+
+  // Download and save the files
+  for (const file of selectedFiles) {
+    await downloadAndSaveFile(file, targetDir);
+  }
+}
+
 export const add = new Command()
   .name("add")
   .description("Add instructions for a new tool to your project")
-  .action(async () => {
+  .argument("[url]", "URL to fetch VibeDef configuration")
+  .action(async (url) => {
     try {
+      if (url) {
+        // URL mode: fetch VibeDef from URL
+        const vibeDef = await fetchVibeDefFromUrl(url);
+        if (vibeDef) {
+          await processVibeDef(vibeDef);
+        }
+        return;
+      }
+
+      // Interactive mode (original flow)
       // Step 1: Select a category
       const category = await selectCategory();
       if (!category) return;
@@ -189,18 +321,17 @@ export const add = new Command()
       if (!tool) return;
 
       // Step 3: Select a file based on framework and available options
-      const file = await selectFile(tool);
-      if (!file) return;
+      const files = await selectFile(tool);
+      if (!files || files.length === 0) return;
 
-      console.log(kleur.green(`Selected file: ${file.name}`));
+      console.log(kleur.green(`Selected ${files.length} file(s) for download`));
 
-      // Step 4: Create target directory
-      const targetDir = path.join(process.cwd(), "vibes", category, tool.name);
-
-      await fs.mkdir(targetDir, { recursive: true });
-
-      // Step 5: Download and save the file
-      await downloadAndSaveFile(file, targetDir);
+      // Step 4: Create a VibeDef and process it
+      await processVibeDef({
+        category: category,
+        name: tool.name,
+        files: files,
+      });
     } catch (error: any) {
       console.error(kleur.red(`Error: ${error.message}`));
     }

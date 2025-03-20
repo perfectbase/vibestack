@@ -26,7 +26,7 @@ export type VibeDef = {
 };
 
 export type VibeFile = {
-  framework: Framework; // Allow other strings as well
+  frameworks: Framework | Framework[] | "_all"; // Allow other strings as well
   name: string;
   url: string;
 };
