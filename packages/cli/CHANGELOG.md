@@ -1,5 +1,11 @@
 # vibestack
 
+## 0.0.32
+
+### Patch Changes
+
+- First draft for the CLI
+
 ## 0.0.31
 
 ### Patch Changes
