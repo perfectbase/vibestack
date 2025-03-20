@@ -1,18 +1,17 @@
 import { Command } from "commander";
-import { initCommand } from "./commands/init.js";
-import { addCommand } from "./commands/add.js";
+import { init } from "./commands/init.js";
+import { add } from "./commands/add.js";
 
-const program = new Command();
+process.on("SIGINT", () => process.exit(0));
+process.on("SIGTERM", () => process.exit(0));
 
-program
+const program = new Command()
   .name("vibestack")
   .description(
     "Easily add instructions, cheat sheets and rules for your favorite tools tailored for your framework."
   )
   .version("0.0.31");
 
-// Register commands
-initCommand(program);
-addCommand(program);
+program.addCommand(init).addCommand(add);
 
 program.parse();
