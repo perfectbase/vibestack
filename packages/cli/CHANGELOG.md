@@ -1,5 +1,11 @@
 # vibestack
 
+## 0.0.33
+
+### Patch Changes
+
+- Fix CLI build
+
 ## 0.0.32
 
 ### Patch Changes
