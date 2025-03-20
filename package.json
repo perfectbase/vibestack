@@ -7,8 +7,8 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
-    "dev:docs": "turbo run dev --filter=docs",
-    "dev:cli": "turbo run dev --filter=vibestack",
+    "docs:dev": "turbo run dev --filter=docs",
+    "cli:dev": "turbo run dev --filter=vibestack",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
