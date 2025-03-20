@@ -1,7 +1,7 @@
 # WIP
 
-> This project is still under development.
-> This README represents the idea of the project.
+> This project is still under development.  
+> This README represents the idea of the project.  
 > Feel free to give me feedback or contribute to the project.
 
 # VibeStack
@@ -10,15 +10,7 @@ Easily add instructions, cheat sheets and rules for your favorite tools tailored
 
 ## Usage
 
-- Initialize your project configuration. The CLI should automatically detect the framework you're using.
-
-```bash
-npx vibestack init
-```
-
-(Also works with `bunx` or `pnpm dlx`)
-
-- Add the files for a new tool
+Run the following command to add a new tool.
 
 ```bash
 npx vibestack add
@@ -26,18 +18,17 @@ npx vibestack add
 
 Then answer the CLI for the category and the tool name. The files will be added to the `./vibes` directory. Now you can just link it to the AI agent's context and you're good to go.
 
-## Command Examples
-
-- `npx vibestack add`: Add a new tool
-- `npx vibestack add {category}`: Select a tool from a specific category
-- `npx vibestack add {category} {tool}`: Add a specific tool
-
 ## Use an External URL
 
-You can use an external URL to add a tool.
+> The official `add` command will only support one tool of each category.  
+> The real value will be when companies start hosting their own files so you can add them with an external URL.
 
 ```bash
-npx vibestack add https://example.com/tool.md
+npx vibestack add https://example.com/def.json
 ```
 
-The CLI will download the file and add it to the project.
+The CLI will download all the files from the json definition and add them to the `./vibes` directory.
+
+## Add Support for Your Tool
+
+You can easily add support for your tool by making your markdown files and json definition accessible from the web. See more [here](./create-your-own.md).
