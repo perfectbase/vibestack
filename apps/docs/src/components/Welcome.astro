@@ -1,0 +1,47 @@
+---
+import vibestackLogo from '../assets/vibestack.svg';
+import githubIcon from '../assets/github.svg';
+import xIcon from '../assets/x.svg';
+import { MainSnippet } from './MainSnippet';
+---
+
+<div class="min-h-screen bg-gradient-to-br from-blue-100 to-purple-100 flex flex-col p-4">
+  <div class="absolute inset-0 -z-10 bg-gradient-to-br from-blue-100 to-purple-100 blur-[100px]"></div>
+  
+  <!-- Logo and title at top left -->
+  <header class="flex items-center gap-3 mb-16 pt-4">
+    <img src={vibestackLogo.src} alt="VibeStack Logo" class="h-10 w-auto" />
+    <h2 class="text-xl font-semibold text-gray-800">VibeStack</h2>
+  </header>
+  
+  <main class="w-full mx-auto flex-grow flex flex-col">
+    <div class="flex-1" />
+    <section class="flex flex-col items-center space-y-8 text-center">
+      <!-- Hero text -->
+      <div class="space-y-2">
+        <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-800">
+          The New Standard For
+        </h1>
+        <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 text-transparent bg-clip-text">
+          llms.txt
+        </h1>
+      </div>
+      
+      <p class="text-xl text-gray-700 max-w-lg">
+        What if you could easily add instructions of your favorite tools in your project?
+      </p>
+      
+      <MainSnippet client:load />
+      
+      <div class="flex gap-6 items-center pt-8">
+        <a target="_blank" href="https://github.com/perfectbase/vibestack" class="p-2 rounded-full bg-white/80 hover:bg-white/60 transition-colors shadow-md">
+          <img src={githubIcon.src} width="24" height="24" alt="GitHub" />
+        </a>
+        <a target="_blank" href="https://x.com/RaviCoding" class="p-2 rounded-full bg-white/80 hover:bg-white/60 transition-colors shadow-md">
+          <img src={xIcon.src} width="24" height="24" alt="X (Twitter)" />
+        </a>
+      </div>
+    </section>
+    <div class="flex-2" />
+  </main>
+</div>
