@@ -155,6 +155,7 @@ async function downloadAndSaveFile(
   const spinner = ora(`Downloading ${file.name}...`).start();
 
   try {
+    console.log(file.url);
     const response = await fetch(file.url);
 
     if (!response.ok) {
