@@ -1,5 +1,11 @@
 # vibestack
 
+## 0.1.2
+
+### Patch Changes
+
+- fix storage url
+
 ## 0.1.1
 
 ### Patch Changes

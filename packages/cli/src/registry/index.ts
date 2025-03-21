@@ -22,8 +22,8 @@ export const registry: VibeDef[] = [
       },
       {
         frameworks: "_all",
-        name: "edgestore-cheatcheet.md",
-        url: "https://vibestack.app/r/storage/edgestore/cheatcheet.md",
+        name: "edgestore-cheat-sheet.md",
+        url: "https://vibestack.app/r/storage/edgestore/cheat-sheet.md",
       },
     ],
   },

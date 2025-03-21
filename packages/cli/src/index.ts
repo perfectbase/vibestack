@@ -10,7 +10,7 @@ const program = new Command()
   .description(
     "Easily add instructions, cheat sheets and rules for your favorite tools tailored for your framework."
   )
-  .version("0.1.1");
+  .version("0.1.2");
 
 program.addCommand(init).addCommand(add);
 
