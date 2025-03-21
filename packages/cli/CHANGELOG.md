@@ -1,5 +1,15 @@
 # vibestack
 
+## 0.1.0
+
+### Minor Changes
+
+- Allow to pass a json URL to the add function
+
+### Patch Changes
+
+- Disable some categories (WIP)
+
 ## 0.0.33
 
 ### Patch Changes
