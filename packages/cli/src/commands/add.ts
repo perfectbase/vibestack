@@ -152,7 +152,9 @@ async function downloadAndSaveFile(
     const response = await fetch(file.url);
 
     if (!response.ok) {
-      spinner.fail(`Failed to download file: ${response.statusText}`);
+      spinner.fail(
+        `Failed to download file: ${response.statusText} (${file.url})`
+      );
       return false;
     }
 
