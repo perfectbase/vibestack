@@ -1,7 +1,6 @@
 # WIP
 
 > This project is still under development.  
-> This README represents the idea of the project.  
 > Feel free to give me feedback or contribute to the project.
 
 # VibeStack
