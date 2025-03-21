@@ -44,8 +44,9 @@ async function selectFromOptions<T>(
 async function selectCategory(): Promise<Category | null> {
   const categories = [...new Set(registry.map((tool) => tool.category))];
   const categoryChoices = categories.map((category) => ({
-    title: category,
+    title: category === "storage" ? category : `${category} (coming soon)`,
     value: category,
+    disabled: category !== "storage",
   }));
 
   const selectedCategory = await selectFromOptions<Category>(

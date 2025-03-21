@@ -8,49 +8,38 @@ export const registry: VibeDef[] = [
       {
         frameworks: "tanstack-react-start",
         name: "edgestore-setup.md",
-        url: "http://localhost:4321/r/storage/edgestore/start-setup.md",
+        url: "https://vibestack.app/r/storage/edgestore/start-setup.md",
+      },
+      {
+        frameworks: "nextjs",
+        name: "edgestore-setup.md",
+        url: "https://vibestack.app/r/storage/edgestore/nextjs-setup.md",
+      },
+      {
+        frameworks: "_all",
+        name: "edgestore-components.md",
+        url: "https://vibestack.app/r/storage/edgestore/components.md",
+      },
+      {
+        frameworks: "_all",
+        name: "edgestore-cheatcheet.md",
+        url: "https://vibestack.app/r/storage/edgestore/cheatcheet.md",
       },
     ],
   },
   {
     category: "auth",
-    name: "clerk",
+    name: "better-auth",
     files: [
       {
         frameworks: "nextjs",
-        name: "clerk-setup.md",
-        url: "http://localhost:4321/r/nextjs/auth/clerk-setup.md",
+        name: "better-auth-setup.md",
+        url: "https://vibestack.app/r/nextjs/auth/better-auth-setup.md",
       },
       {
         frameworks: "tanstack-react-start",
-        name: "clerk-setup.md",
-        url: "http://localhost:4321/r/tanstack-react-start/auth/clerk-setup.md",
-      },
-    ],
-  },
-  {
-    category: "database",
-    name: "prisma",
-    files: [
-      {
-        frameworks: "nextjs",
-        name: "prisma-setup.md",
-        url: "http://localhost:4321/r/nextjs/database/prisma-setup.md",
-      },
-      {
-        frameworks: "nextjs",
-        name: "prisma-cheatsheet.md",
-        url: "http://localhost:4321/r/nextjs/database/prisma-cheatsheet.md",
-      },
-      {
-        frameworks: "tanstack-react-start",
-        name: "prisma-setup.md",
-        url: "http://localhost:4321/r/tanstack-react-start/database/prisma-setup.md",
-      },
-      {
-        frameworks: "tanstack-react-start",
-        name: "prisma-cheatsheet.md",
-        url: "http://localhost:4321/r/tanstack-react-start/database/prisma-cheatsheet.md",
+        name: "better-auth-setup.md",
+        url: "https://vibestack.app/r/tanstack-react-start/auth/better-auth-setup.md",
       },
     ],
   },
@@ -61,22 +50,22 @@ export const registry: VibeDef[] = [
       {
         frameworks: "nextjs",
         name: "drizzle-setup.md",
-        url: "http://localhost:4321/r/nextjs/database/drizzle-setup.md",
+        url: "https://vibestack.app/r/nextjs/database/drizzle-setup.md",
       },
       {
         frameworks: "nextjs",
         name: "drizzle-cheatsheet.md",
-        url: "http://localhost:4321/r/nextjs/database/drizzle-cheatsheet.md",
+        url: "https://vibestack.app/r/nextjs/database/drizzle-cheatsheet.md",
       },
       {
         frameworks: "tanstack-react-start",
         name: "drizzle-setup.md",
-        url: "http://localhost:4321/r/tanstack-react-start/database/drizzle-setup.md",
+        url: "https://vibestack.app/r/tanstack-react-start/database/drizzle-setup.md",
       },
       {
         frameworks: "tanstack-react-start",
         name: "drizzle-cheatsheet.md",
-        url: "http://localhost:4321/r/tanstack-react-start/database/drizzle-cheatsheet.md",
+        url: "https://vibestack.app/r/tanstack-react-start/database/drizzle-cheatsheet.md",
       },
     ],
   },
@@ -87,7 +76,7 @@ export const registry: VibeDef[] = [
       {
         frameworks: "nextjs",
         name: "stripe-setup.md",
-        url: "http://localhost:4321/r/nextjs/payments/stripe-setup.md",
+        url: "https://vibestack.app/r/nextjs/payments/stripe-setup.md",
       },
     ],
   },
@@ -98,7 +87,7 @@ export const registry: VibeDef[] = [
       {
         frameworks: "tanstack-react-start",
         name: "ai-sdk-setup.md",
-        url: "http://localhost:4321/r/tanstack-react-start/ai/ai-sdk-setup.md",
+        url: "https://vibestack.app/r/tanstack-react-start/ai/ai-sdk-setup.md",
       },
     ],
   },

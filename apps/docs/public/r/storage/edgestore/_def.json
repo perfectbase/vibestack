@@ -3,12 +3,12 @@
   "name": "edgestore",
   "files": [
     {
-      "frameworks": ["tanstack-react-start"],
+      "frameworks": "tanstack-react-start",
       "name": "edgestore-setup.md",
       "url": "http://localhost:4321/r/storage/edgestore/start-setup.md"
     },
     {
-      "frameworks": ["nextjs"],
+      "frameworks": "nextjs",
       "name": "edgestore-setup.md",
       "url": "http://localhost:4321/r/storage/edgestore/nextjs-setup.md"
     },
