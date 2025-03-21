@@ -5,22 +5,22 @@
     {
       "frameworks": "tanstack-react-start",
       "name": "edgestore-setup.md",
-      "url": "http://localhost:4321/r/storage/edgestore/start-setup.md"
+      "url": "https://edgestore.dev/r/start-setup.md"
     },
     {
       "frameworks": "nextjs",
       "name": "edgestore-setup.md",
-      "url": "http://localhost:4321/r/storage/edgestore/nextjs-setup.md"
+      "url": "https://edgestore.dev/r/nextjs-setup.md"
     },
     {
       "frameworks": "_all",
       "name": "edgestore-components.md",
-      "url": "http://localhost:4321/r/storage/edgestore/components.md"
+      "url": "https://edgestore.dev/r/components.md"
     },
     {
       "frameworks": "_all",
-      "name": "edgestore-cheatcheet.md",
-      "url": "http://localhost:4321/r/storage/edgestore/cheatcheet.md"
+      "name": "edgestore-cheat-sheet.md",
+      "url": "https://edgestore.dev/r/cheat-sheet.md"
     }
   ]
 }
